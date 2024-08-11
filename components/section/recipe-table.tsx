@@ -140,7 +140,7 @@ export function RecipeTable(): React.ReactElement {
                     </div>
 
                     <div className="ingredients-input flex max-sm:flex-col justify-between items-center gap-3">
-                        <div className="input-ingredients items-end w-fit flex max-sm:flex-row flex-col gap-1">
+                        <div className="input-ingredients max-sm:items-end w-fit flex max-sm:flex-row flex-col gap-1">
                             <div className="flex flex-col items-start justify-center">
                                 <div className="flex items-center justify-center">
                                     <div className="text-[0.8rem]">{`Let's put ingredients on table`}</div>
