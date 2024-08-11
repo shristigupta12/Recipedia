@@ -40,15 +40,15 @@ export function RecipeOutput({recipe}: RecipeOutputProps) : React.ReactElement{
                             {recipe.map((obj, key)=>{
                                 console.log("Rendering recipe item: ", obj);
                                 return(
-                                <CarouselItem className="recipe basis-1/2 bg-white shadow-md rounded-md mx-5 p-4 flex flex-col gap-4" key={key}>
+                                <CarouselItem className="recipe bg-white shadow-md rounded-md mx-5 p-4 flex flex-col gap-4" key={key}>
                                     <div>
                                         <div className="text-xl font-bold text-[#756253]">{obj.dishName}</div>
                                         <div className="text-neutral-500">{obj.description}</div>
                                     </div>
                                     <div className="flex flex-col gap-1">
                                         <div className="font-semibold text-[#756253]">Ingredients:</div>
-                                        <ul className="bg-[#dfd2c6] p-3  rounded-md grid grid-cols-4 items-center justify-center">{obj.ingredients.map((ing, key1)=>(
-                                            <li key={key1} className="text-sm text-center">{ing}</li>
+                                        <ul className="bg-[#dfd2c6] p-3  rounded-md grid grid-rows-4 items-center ">{obj.ingredients.map((ing, key1)=>(
+                                            <li key={key1} className="text-sm ">{ing}</li>
                                         ))}</ul>
                                     </div>
                                     <div className="flex flex-col gap-1">
