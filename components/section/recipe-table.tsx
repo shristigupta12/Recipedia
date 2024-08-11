@@ -12,6 +12,7 @@ import {
     CarouselNext,
     CarouselPrevious,
   } from "@/components/ui/carousel"
+import { getRecipies } from "@/app/actions";
 
 type RecipeType = {
     dishName: string;
@@ -29,60 +30,10 @@ export function RecipeTable(): React.ReactElement {
     const [ingredientsArray, setIngredientsArray] = useState<string[]>([])
     const [recipe, setRecipe] = useState<RecipeType[]>([])
 
-    useEffect(()=>{
-    setRecipe([
-        {
-            dishName: "Pav Bhaji",
-            description: "A spicy blend of vegetables cooked in tomato gravy and served with buttered pav.",
-            ingredients: ["potatoes", "tomatoes", "onions", "capsicum", "butter", "spices"],
-            recipe: [
-                "Boil and mash the vegetables.",
-                "Heat butter in a pan and add onions.",
-                "Add tomatoes and cook until soft.",
-                "Add the mashed vegetables and spices.",
-                "Cook everything together and serve with buttered pav."
-            ]
-        },
-        {
-            dishName: "Biryani",
-            description: "A fragrant rice dish made with layers of marinated meat, fried onions, and fragrant rice.",
-            ingredients: ["basmati rice", "chicken", "yogurt", "spices", "onions", "ghee"],
-            recipe: [
-                "Marinate the chicken with yogurt and spices.",
-                "Fry onions until golden brown.",
-                "Cook rice until 70% done.",
-                "Layer the marinated chicken and rice, adding fried onions between layers.",
-                "Cook on low heat until the rice is fully cooked and the chicken is tender."
-            ]
-        },
-        {
-            dishName: "Butter Chicken",
-            description: "A rich and creamy dish made with marinated chicken cooked in a spiced tomato gravy.",
-            ingredients: ["chicken", "tomatoes", "butter", "cream", "spices", "garlic"],
-            recipe: [
-                "Marinate the chicken in yogurt and spices.",
-                "Cook tomatoes with spices to make the gravy.",
-                "Add butter and cream to the gravy.",
-                "Cook the marinated chicken in the gravy until tender.",
-                "Serve with naan or rice."
-            ]
-        },
-        {
-            dishName: "Chole Bhature",
-            description: "A classic North Indian dish consisting of spicy chickpeas (chole) and deep-fried bread (bhature).",
-            ingredients: ["chickpeas", "onions", "tomatoes", "spices", "flour", "yogurt", "baking powder", "oil"],
-            recipe: [
-                "Soak the chickpeas overnight and cook them until tender.",
-                "Prepare the bhature dough by mixing flour, yogurt, baking powder, and a pinch of salt.",
-                "Let the dough rest for a few hours.",
-                "Prepare the chole by cooking onions and tomatoes with spices to create a rich gravy.",
-                "Add the cooked chickpeas to the gravy and let it simmer.",
-                "Divide the dough into balls, roll them out, and deep-fry until golden brown.",
-                "Serve the chole with hot bhature."
-            ]
-        }
-    ])
-})
+    useEffect(() => {
+        console.log("Updated recipe state: ", recipe);
+    }, [recipe]);
+
 
     function handleIngredientChange(e:any){
         setIngredient(e.target.value)
@@ -99,8 +50,11 @@ export function RecipeTable(): React.ReactElement {
         }
     }
 
-    function getRecipies(){
-
+    async function onSubmit(){
+        console.log("submit button click")
+        var response = await getRecipies(ingredientsArray,cuisine)
+        console.log("response in client: ", response)
+        setRecipe(response)
     }
 
     return(
@@ -110,7 +64,7 @@ export function RecipeTable(): React.ReactElement {
                     <div className="cuisine-input flex items-center justify-center gap-3">
                         <div className="flex items-center">
                             
-                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chef-hat" width="24" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" fill="rgb(136 111 92 / var(--tw-text-opacity))" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chef-hat" width="24" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" fill="rgb(136 111 92 / var(--tw-text-opacity))" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M12 3c1.918 0 3.52 1.35 3.91 3.151a4 4 0 0 1 2.09 7.723l0 7.126h-12v-7.126a4 4 0 1 1 2.092 -7.723a4 4 0 0 1 3.908 -3.151z" />
                                 <path d="M6.161 17.009l11.839 -.009" />
@@ -124,7 +78,7 @@ export function RecipeTable(): React.ReactElement {
                         <div className="input-ingredients w-fit flex flex-col gap-1">
                             <div className="flex items-center justify-center">
                                 <div>Add ingredients on the table</div>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-carrot" width="25" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#7f5345" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-carrot" width="25" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#7f5345" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                     <path d="M3 21s9.834 -3.489 12.684 -6.34a4.487 4.487 0 0 0 0 -6.344a4.483 4.483 0 0 0 -6.342 0c-2.86 2.861 -6.347 12.689 -6.347 12.689z" />
                                     <path d="M9 13l-1.5 -1.5" />
@@ -139,8 +93,8 @@ export function RecipeTable(): React.ReactElement {
 
                         <div className="table w-4/6 h-60 relative bg-[#b3937a] shadow-md rounded-md">
                             <div className="absolute w-full h-full grid grid-cols-12 opacity-15  ">
-                                {arr.map((key)=>{return(
-                                <div className="border border-neutral-200 " key={key}> </div>
+                                {arr.map((arrkey)=>{return(
+                                <div className="border border-neutral-200 " key={arrkey}> </div>
                                 )})}
                             </div>
                             <div>
@@ -152,13 +106,15 @@ export function RecipeTable(): React.ReactElement {
                     </div>
                     
                     <div className="flex justify-center">
-                        <Button className="w-fit bg-white hover:bg-neutral-200 flex text-[#756253] font-bold border border-[#a8907e] shadow-md" onClick={getRecipies}>Get Recipies ✨</Button>
+                        <Button type="submit" className="w-fit bg-white hover:bg-neutral-200 flex text-[#756253] font-bold border border-[#a8907e] shadow-md" onClick={()=>onSubmit()} >Get Recipies ✨</Button>
                     </div>
                 </div>
 
                 <Carousel>
                     <CarouselContent>
-                            {recipe.map((obj, key)=>(
+                            {recipe.map((obj, key)=>{
+                                console.log("Rendering recipe item: ", obj);
+                                return(
                                 <CarouselItem className="recipe basis-1/2 bg-white shadow-md rounded-md mx-5 p-4 flex flex-col gap-4" key={key}>
                                     <div>
                                         <div className="text-xl">{obj.dishName}</div>
@@ -177,7 +133,7 @@ export function RecipeTable(): React.ReactElement {
                                         ))}</ol>
                                     </div>
                                 </CarouselItem >
-                            ))}
+                            )})}
                              
                     </CarouselContent>
                     <CarouselPrevious />
