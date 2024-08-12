@@ -40,7 +40,7 @@ export function RecipeOutput({recipe}: RecipeOutputProps) : React.ReactElement{
                             {recipe.map((obj, key)=>{
                                 console.log("Rendering recipe item: ", obj);
                                 return(
-                                <CarouselItem className="recipe bg-white shadow-md rounded-md mx-5 p-4 flex flex-col gap-4" key={key}>
+                                <CarouselItem className="recipe max-2xl:basis-1/2 max-sm:basis-full bg-white shadow-md rounded-md mx-5 p-4 flex flex-col gap-4" key={key}>
                                     <div>
                                         <div className="text-xl font-bold text-[#756253]">{obj.dishName}</div>
                                         <div className="text-neutral-500">{obj.description}</div>
