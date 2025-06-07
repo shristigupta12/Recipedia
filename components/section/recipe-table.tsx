@@ -125,41 +125,41 @@ export function RecipeTable(): React.ReactElement {
 
     return(
         <PageContent>
-            <ViewContainer className="bg-neutral-100 rounded-md shadow-lg py-6 px-8 flex flex-col gap-7 text-neutral-600  border-x-neutral-500 ">
+            <ViewContainer className="bg-neutral-100 rounded-md shadow-lg py-6 px-8 flex flex-col gap-7 text-neutral-600">
                 <div className="input-portion flex flex-col gap-6">
-                    <div className="cuisine-input flex max-sm:flex-col items-center justify-center gap-3 max-sm:gap-0">
+                    <div className="cuisine-input flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0">
                         <div className="flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chef-hat" width="24" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="white" fill="rgb(136 111 92 / var(--tw-text-opacity))" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M12 3c1.918 0 3.52 1.35 3.91 3.151a4 4 0 0 1 2.09 7.723l0 7.126h-12v-7.126a4 4 0 1 1 2.092 -7.723a4 4 0 0 1 3.908 -3.151z" />
                                 <path d="M6.161 17.009l11.839 -.009" />
                             </svg>
-                            <div className="text-[0.8rem]">Enter a cuisine of your choice</div>
+                            <div className="text-sm sm:text-base">Enter a cuisine of your choice</div>
                         </div>
-                        <Input className=" w-60 shadow-md max-sm:text-[0.8rem]" onChange={handleCuisineChange} value={cuisine}></Input>
+                        <Input className="w-60 shadow-md text-sm sm:text-base" onChange={handleCuisineChange} value={cuisine}></Input>
                     </div>
 
-                    <div className="ingredients-input flex max-sm:flex-col justify-between items-center gap-3">
-                        <div className="input-ingredients max-sm:items-end w-fit flex max-sm:flex-row flex-col gap-1">
+                    <div className="ingredients-input flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div className="input-ingredients w-full sm:w-auto flex flex-col items-center sm:items-end gap-1">
                             <div className="flex flex-col items-start justify-center">
                                 <div className="flex items-center justify-center">
-                                    <div className="text-[0.8rem]">{`Let's put ingredients on table`}</div>
+                                    <div className="text-sm sm:text-base">{`Let's put ingredients on table`}</div>
                                     <Image src="/carrot.svg" width={23} height={23} alt="carrot" />
                                 </div>
-                                <Input className="ingredient-input w-36 max-sm:text-[0.8rem]  shadow-md" onChange={handleIngredientChange} value={ingredient}></Input>
+                                <Input className="ingredient-input w-full sm:w-36 text-sm sm:text-base shadow-md" onChange={handleIngredientChange} value={ingredient}></Input>
                             </div>
-                            <Button className="w-fit mt-3 bg-[#756253] hover:bg-[#b3937a] max-sm:h-8  flex shadow-md" onClick={addIngredient}>Add</Button>
+                            <Button className="w-full sm:w-fit mt-3 bg-[#756253] hover:bg-[#b3937a] h-8 sm:h-auto flex shadow-md" onClick={addIngredient}>Add</Button>
                         </div>
 
-                        <div className="table w-4/6 max-sm:w-full h-60 relative bg-[#b3937a] shadow-md rounded-md">
-                            <div className="absolute w-full h-full grid grid-cols-12 opacity-15  ">
-                                {arr.map((arrkey)=>{return(
-                                <div className="border border-neutral-200 " key={arrkey}> </div>
-                                )})}
+                        <div className="table w-full sm:w-4/6 h-60 relative bg-[#b3937a] shadow-md rounded-md">
+                            <div className="absolute w-full h-full grid grid-cols-12 opacity-15">
+                                {arr.map((_, index) => (
+                                    <div className="border border-neutral-200" key={index}></div>
+                                ))}
                             </div>
-                            <div className="p-5 grid grid-cols-4 justify-evenly items-center">
-                                {ingredientsArray.map((ing, index)=>(
-                                    <div key={index} className="relative bg-white rounded-md py-2 max-sm:py-1 max-sm:px-2 w-fit px-4 text-[#756253] max-sm:text-[0.8rem]">{ing}<button className="absolute bg-neutral-300 text-neutral-500 rounded-full w-4 h-4 text-xs top-[-2px] right-[-2px]" onClick={()=>removeIngredient(index)}>x</button></div>
+                            <div className="p-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 justify-evenly items-center">
+                                {ingredientsArray.map((ing, index) => (
+                                    <div key={index} className="relative bg-white rounded-md py-1 px-2 sm:py-2 sm:px-4 text-[#756253] text-sm sm:text-base w-fit">{ing}<button className="absolute bg-neutral-300 text-neutral-500 rounded-full w-4 h-4 text-xs top-[-2px] right-[-2px]" onClick={() => removeIngredient(index)}>x</button></div>
                                 ))}
                             </div>
                         </div>
